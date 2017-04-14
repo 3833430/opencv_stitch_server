@@ -1,0 +1,46 @@
+开始拼图(id为任务号)
+[result_path可以不加,result_name包含path]
+[127.0.0.1:8081/StartStitch/?org_picture_path=/home/libceb/buda/1234&org_picture_num=10&org_picture_type=JPG&result_name=/home/libceb/buda/22.jpg&result_path=]
+command=GetStitchRestult 
+code=
+stauts=
+result_name=
+
+使用视频来合成全景图
+[127.0.0.1:8081/StartStitchWithVideo/?org_video_name=/home/libceb/buda/IMG_1534.MOV&org_picture_path=/home/libceb/buda&result_name=&result_path=&cut_number=20]
+command=GetStitchRestult 
+code=0
+stauts=0
+result_name=
+
+
+查询当前拼图状态
+[127.0.0.1:8081/GetStitchRestult]
+command=GetStitchRestult 
+code=0
+stauts=0
+result_name=
+
+删除完成的拼图或原始文件
+[127.0.0.1:8081/DeletStitchRestult/?result_name=&result_path=]
+command=DeletStitchRestult 
+code=0
+
+
+下载已有图片,若不加路径为当前程序所在路径
+[127.0.0.1:8081/result_1.jpeg]
+
+
+stauts:
+"idle"
+"busy"
+"finish"
+"Can't  find images" 
+"Can't stitch images"
+
+code:
+"no error"
+"busy error"
+....
+
+
