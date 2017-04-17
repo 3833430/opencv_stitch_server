@@ -243,13 +243,25 @@ void httpserver_ProcessRequest(struct evhttp_request *req) {
 
 }
 
-int main(void) {
-    printf("stitcher start ... \n");
+int main( int argc, char *argv[] ){
+    int use_default=1;
+    FILE * fp;
+    cout << "stitcher start "<<endl;
+    if((argc>1)&&(argv[1]!=NULL))
+    {
+        fp = fopen(argv[1], "r");
+        if (fp != NULL)
+        {
+            use_default=0;
+            cout << "Loading the para file successfully"<<endl;
+        }
+    }
+
     last_id=0;
     result_status="idle";  //0 idle, 1 busy ,2 finish, 3  Can't  find images  4Can't stitch images
     result_name = "";
     result_path = "";
-    Paras_All_Init();
+    Paras_All_Init(use_default);
     httpserver_start(8081, 10, 10240);
     printf("stitcher end ... \n");
 }

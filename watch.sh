@@ -18,12 +18,12 @@ fi
 
 
 while [ 1 ] ; do
-   CheckProcess "./src/Picture_Stitch"
+   CheckProcess "./build/bin/Picture_Stitch"
     if [ $? = 1 ];
     then
 # 杀死所有test进程，可换任意你需要执行的操作 
 	killall -9 Picture_Stitch
-	exec ./src/Picture_Stitch &  
+	exec ./build/bin/Picture_Stitch $1 &  
     fi
 	sleep 1
 done

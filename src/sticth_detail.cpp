@@ -555,75 +555,58 @@ string stitch_detail(vector<String> img_names, Mat& pano)
 
 }
 
-void Paras_All_Init()
+void Paras_All_Init(bool use_default)
 {
-    preview = Get_Paras_for_bool("preview");
+    if(use_default==0)
+    {
+        preview = Get_Paras_for_bool("preview");
+        try_cuda = Get_Paras_for_bool("try_cuda");
+        work_megapix = Get_Paras_for_float("work_megapix");
+        seam_megapix = Get_Paras_for_float("seam_megapix");
+        compose_megapix = Get_Paras_for_float("compose_megapix");
+        conf_thresh = Get_Paras_for_float("conf_thresh");
+        features_type = Get_Paras_for_string("features_type");
+        matcher_type = Get_Paras_for_string("matcher_type");
+        estimator_type = Get_Paras_for_string("estimator_type");
+        ba_cost_func = Get_Paras_for_string("ba_cost_func");
+        ba_refine_mask = Get_Paras_for_string("ba_refine_mask");
+        do_wave_correct = Get_Paras_for_bool("do_wave_correct");
+        wave_correct = static_cast<WaveCorrectKind>(Get_Paras_for_Emue("wave_correct"));
+        save_graph = Get_Paras_for_bool("save_graph");
+        warp_type = Get_Paras_for_string("warp_type");
+        expos_comp_type  = Get_Paras_for_Emue("expos_comp_type");
+        match_conf = Get_Paras_for_float("match_conf");
+        seam_find_type= Get_Paras_for_string("seam_find_type");
+        blend_type = Get_Paras_for_Emue("blend_type");
+        timelapse_type = Get_Paras_for_Emue("timelapse_type");
+        blend_strength = Get_Paras_for_Emue("blend_strength");
+        timelapse= Get_Paras_for_bool("timelapse");
+        range_width = Get_Paras_for_Emue("range_width");
+    }
+
+
     cout<<"preview is "<<preview<<endl;
-
-    try_cuda = Get_Paras_for_bool("try_cuda");
     cout<<"try_cuda is "<<try_cuda<<endl;
-
-    work_megapix = Get_Paras_for_float("work_megapix");
     cout<<"work_megapix is "<<work_megapix<<endl;
-
-    seam_megapix = Get_Paras_for_float("seam_megapix");
     cout<<"seam_megapix is "<<seam_megapix<<endl;
-
-    compose_megapix = Get_Paras_for_float("compose_megapix");
     cout<<"compose_megapix is "<<compose_megapix<<endl;
-
-    conf_thresh = Get_Paras_for_float("conf_thresh");
     cout<<"conf_thresh is "<<conf_thresh<<endl;
-
-    features_type = Get_Paras_for_string("features_type");
     cout<<"features_type is "<<features_type<<endl;
-
-    matcher_type = Get_Paras_for_string("matcher_type");
     cout<<"matcher_type is "<<matcher_type<<endl;
-
-    estimator_type = Get_Paras_for_string("estimator_type");
     cout<<"estimator_type is "<<estimator_type<<endl;
-
-    ba_cost_func = Get_Paras_for_string("ba_cost_func");
     cout<<"ba_cost_func is "<<ba_cost_func<<endl;
-
-    ba_refine_mask = Get_Paras_for_string("ba_refine_mask");
     cout<<"ba_refine_mask is "<<ba_refine_mask<<endl;
-
-    do_wave_correct = Get_Paras_for_bool("do_wave_correct");
     cout<<"do_wave_correct is "<<do_wave_correct<<endl;
-
-    wave_correct = static_cast<WaveCorrectKind>(Get_Paras_for_Emue("wave_correct"));
     cout<<"wave_correct is "<<wave_correct<<endl;
-
-    save_graph = Get_Paras_for_bool("save_graph");
     cout<<"save_graph is "<<save_graph<<endl;
-
-    warp_type = Get_Paras_for_string("warp_type");
     cout<<"warp_type is "<<warp_type<<endl;
-
-    expos_comp_type  = Get_Paras_for_Emue("expos_comp_type");
     cout<<"expos_comp_type is "<<expos_comp_type<<endl;
-
-    match_conf = Get_Paras_for_float("match_conf");
     cout<<"match_conf is "<<match_conf<<endl;
-
-    seam_find_type= Get_Paras_for_string("seam_find_type");
     cout<<"seam_find_type is "<<seam_find_type<<endl;
-
-    blend_type = Get_Paras_for_Emue("blend_type");
     cout<<"blend_type is "<<blend_type<<endl;
-
-    timelapse_type = Get_Paras_for_Emue("timelapse_type");
     cout<<"timelapse_type is "<<timelapse_type<<endl;
-
-    blend_strength = Get_Paras_for_Emue("blend_strength");
     cout<<"blend_strength is "<<blend_strength<<endl;
-
-    timelapse= Get_Paras_for_bool("timelapse");
     cout<<"timelapse is "<<timelapse<<endl;
-
-    range_width = Get_Paras_for_Emue("range_width");
     cout<<"range_width is "<<range_width<<endl;
 }
 
