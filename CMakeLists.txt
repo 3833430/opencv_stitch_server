@@ -23,6 +23,13 @@ if(CMAKE_VERSION VERSION_LESS "2.8.11")
   include_directories(${OpenCV_INCLUDE_DIRS})
 endif()
 
+find_library(libevent event)
+if (NOT libevent)
+  message(FATAL_ERROR "event not found")
+else (libevent)
+  message(STATUS "event found: ${libevent}")
+endif(NOT libevent)
+
 # Save libs and executables in the same place
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Output directory for applications")
 #set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
