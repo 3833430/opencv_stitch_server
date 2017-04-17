@@ -42,7 +42,7 @@ add_executable(Picture_Stitch ${Stitcher_SRC})
 
 # Link your application with OpenCV libraries
 target_link_libraries(Picture_Stitch ${OpenCV_LIBS})
-target_link_libraries(Picture_Stitch event)
+target_link_libraries(Picture_Stitch ${libevent})
 
 set(CMAKE_CXX_COMPILER      "g++")
 
