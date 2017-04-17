@@ -26,20 +26,20 @@ string get_current_path();
 string Find_para(string cmd,string key_word);
 string Stitch_Picture(string path,string result_path,string result_name);
 
-
 struct HTTPST
 {
     struct event_base *base;
     struct evhttp *httpd;
 };
 
-
-
 int httpserver_bindsocket(int port, int backlog) {
   int r;
   int nfd;
   nfd = socket(AF_INET, SOCK_STREAM, 0);
-  if (nfd < 0) return -1;
+  if (nfd < 0) {
+    printf("socket fail. \n");
+    return -1;
+  }
 
   int one = 1;
   r = setsockopt(nfd, SOL_SOCKET, SO_REUSEADDR, (char *)&one, sizeof(int));
@@ -51,9 +51,15 @@ int httpserver_bindsocket(int port, int backlog) {
   addr.sin_port = htons(port);
 
   r = bind(nfd, (struct sockaddr*)&addr, sizeof(addr));
-  if (r < 0) return -1;
+  if (r < 0) {
+    printf("bind fail. \n");
+    return -1;
+  }
   r = listen(nfd, backlog);
-  if (r < 0) return -1;
+  if (r < 0) {
+    printf("listen fail. \n");  
+    return -1;
+  }
 
   int flags;
   if ((flags = fcntl(nfd, F_GETFL, 0)) < 0
@@ -66,7 +72,10 @@ int httpserver_bindsocket(int port, int backlog) {
 int httpserver_start(int port, int nthreads, int backlog) {
   int r, i;
   int nfd = httpserver_bindsocket(port, backlog);
-  if (nfd < 0) return -1;
+  if (nfd < 0) {
+    printf("http server bind socket fail. \n");
+    return -1;
+  }
 
 
   printf("http server start now \n");
@@ -86,6 +95,7 @@ int httpserver_start(int port, int nthreads, int backlog) {
   for (i = 0; i < nthreads; i++) {
     pthread_join(ths[i], NULL);
   }
+  return 0;
 }
 
 void* httpserver_Dispatch(void *arg) {
@@ -234,17 +244,17 @@ void httpserver_ProcessRequest(struct evhttp_request *req) {
 }
 
 int main(void) {
+    printf("stitcher start ... \n");
     last_id=0;
     result_status="idle";  //0 idle, 1 busy ,2 finish, 3  Can't  find images  4Can't stitch images
     result_name = "";
     result_path = "";
     Paras_All_Init();
     httpserver_start(8081, 10, 10240);
+    printf("stitcher end ... \n");
 }
 
-
-int parseCmdArgs(string path,string type,vector<Mat> *images,vector<String> *imgs)
-{
+int parseCmdArgs(string path,string type,vector<Mat> *images,vector<String> *imgs) {
     cout << "Find "<< type.c_str()<<" in "<<path.c_str()<<endl;
 
     DIR* pDir = NULL;
@@ -279,8 +289,7 @@ int parseCmdArgs(string path,string type,vector<Mat> *images,vector<String> *img
 }
 
 
-string Stitch_Picture(string path,string result_path,string result_name)
-{
+string Stitch_Picture(string path,string result_path,string result_name) {
     string error_code="busy error";
 
     while(result_status!="busy")
@@ -305,8 +314,6 @@ string Stitch_Picture(string path,string result_path,string result_name)
         if(error_code!="no error")
             break;
 #else
-
-
 
         Ptr<Stitcher> stitcher = Stitcher::create(mode, try_use_gpu);
         Stitcher::Status status = stitcher->stitch(images, pano);
@@ -356,9 +363,7 @@ string Stitch_Picture(string path,string result_path,string result_name)
     return error_code;
 }
 
-
-string get_current_path()
-{
+string get_current_path() {
     char path[256];
     FILE * fp;
     fp=popen("pwd","r");
@@ -369,8 +374,7 @@ string get_current_path()
     return path111;
 }
 
-string Find_para(string cmd,string key_word)
-{
+string Find_para(string cmd,string key_word) {
     int length=key_word.length();
     if(cmd.find(key_word)==string::npos)
         return "";

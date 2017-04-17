@@ -671,7 +671,6 @@ string Get_Paras_for_string(string key)
     return "";
 }
 
-
 int Get_Paras_Value(string key,string& value)
 {
     FILE * fp;

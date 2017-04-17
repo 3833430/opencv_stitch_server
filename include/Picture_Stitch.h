@@ -37,13 +37,11 @@
 #include "opencv2/stitching/warpers.hpp"
 
 
-
 using namespace std;
 using namespace cv;
 int video_to_picture(string video,string picture_path,int maxcount);
 string stitch_detail(vector<String> img_names, Mat &pano);
 void Paras_All_Init();
-
 
 
 #endif
